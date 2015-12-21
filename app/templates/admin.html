@@ -1,0 +1,104 @@
+
+<div class="container">
+  <p><a id="logout" class="btn btn-danger pull-right" ng-click="logout()">log out</a></p>
+  <div class="mainWorkWindow">
+    <p>Lists: <a data-toggle='modal' data-target="#myAddClassModal">(add a list)</a></p>
+    <table class="table table-responsive">
+      <thead><th>list name</th><th>list items</th><th>list link/qr code</th></thead>
+      <tbody>
+        <tr ng-show="!classes.length">
+          <td colspan="3">
+            <p>Please add a list and books or other items to generate a qr code for your buyers.</p>
+            <p>If you are having any trouble at all, feel free to call 1-414-628-8575</p>
+          </td>
+        </tr>
+        <tr ng-repeat="class in classes track by $index" ng-init="classIndex = $index">
+          <td>{{class.name}} <a data-toggle='modal' data-target="#myClassModal" ng-click="removeClass(classIndex, class.id)">(remove)</a></td>
+          <td>
+            <ol>
+              <li ng-repeat="item in class.items track by $index">{{item.title}} - {{item.isbn}} - <a ng-click="removeBook($index, classIndex)">(remove)</a></li>
+              <a  ng-mouseover="frustrating(classIndex, class.id)" class="addBookLink" data-toggle='modal' data-target="#myModal">add an item</a>
+            </ol>
+          </td>
+          <td>
+            <span ng-show="class.items.length">
+            <button ng-mouseover="frustrating(classIndex, class.id)" ng-click="generateQrCode(classIndex)" class="btn btn-default qrcode" data-toggle="modal" data-target="#myQrModal">generate qr code</button>
+            </span>
+            <span ng-show="!class.items.length">Please add a book or other item to generate a qr code for your buyers.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Add CLASS -->
+<div class="modal fade" id="myAddClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add a class:</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <p>list title: <input type="text" id="classTitle"></input></p>
+          <p><button id="addClassButton" ng-click="addClass()" data-dismiss="modal" class="btn btn-default">enter</button></p>
+        </div>
+        <div id="amazonListings"></div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add BOOK -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add a book or other item:</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <p>isbn-10 or ASIN: <input ng-paste="amazonLookup()" ng-change="amazonLookup()" ng-focus="clearText()" ng-model="book.ISBN" id="bookIsbn" type="text"></input></p>
+          <p><em>note: An ISBN-10 or ASIN number (directly from Amazon) should be used. NOT an ISBN-13 at this time. Usually, it can be taken directly from the book's bar code. If not, try looking up the book's Amazon.com page directly and pulling the ISBN-10 or ASIN from there.</em></p>
+        </div>
+        <div id="amazonListings"></div>
+      </div>
+      <div class="modal-footer" ng-show="book.ISBN">
+        <section class="pull-left book-confirm">
+          <p><strong><small>Title:</small></strong> {{book.Title}}</p>
+          <p><strong><small>Author:</small></strong> {{book.Author}}</p>
+          <p><strong><small>ISBN/ASIN:</small></strong> {{book.ISBN}}</p>
+          <p><strong><small>Publisher:</small></strong> {{book.Manufacturer}}</p>
+        </section>
+        <div class="clearfix"></div>
+        <p><button ng-click="addBook()" data-dismiss="modal" class="btn btn-primary">this is the right item</button></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal generate qr code -->
+<div class="modal fade" id="myQrModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div id="DisplayContainer">
+            <div id="qrcode"></div>
+            <!--<button class="btn btn-default">download image</button>-->
+            <p>To download, right click or option+click the image and save to your computer.</p>
+            <p>To test the qr code destination, <a target="_blank" ng-href="{{qrcodeurl}}">click here.</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

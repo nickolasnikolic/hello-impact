@@ -1,0 +1,13 @@
+{
+    "require": {
+        "slim/slim": "~2.6",
+        "exeu/apai-io": "dev-master",
+        "mailgun/mailgun-php":"~1.7.2"
+    },
+    "extra": {
+      "heroku": {
+        "document-root": "api",
+        "index-document": "index.php"
+      }
+    }
+}

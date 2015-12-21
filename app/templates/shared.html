@@ -1,0 +1,23 @@
+<section class="container banner col-sm-12 col-md-4">
+  <article class="description">
+    <p>list.plus is a free service that lets you compile shopping lists and anyone can purchase them from Amazon.com&trade; in just one step.</p>
+  </article>
+</section>
+
+<section class="container lists clearfix col-sm-12">
+  <article class="list col-sm-12 col-md-3">
+    <div><h2>{{list[0].name}}</h2></div>
+    <ul>
+      <li ng-repeat="item in list.items">
+        TODO: change to listing
+      </li>
+    </ul>
+    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://list.plus/app/#/shared/{{list[0].list_owner}}/{{list[0].id}}" data-text="{{list[0].name}}">
+      <a href="" class="ssk ssk-facebook"></a>
+      <a href="" class="ssk ssk-twitter"></a>
+      <a href="" class="ssk ssk-google-plus"></a>
+      <a href="" class="ssk ssk-pinterest"></a>
+      <a href="" class="ssk ssk-linkedin"></a>
+    </div>
+  </article>
+</section>

@@ -1,0 +1,34 @@
+html,body{
+    font-family: 'pacienciaregular';
+}
+
+h1,h2,h3,h4,h5,h6,.san-serif{
+    font-family: 'sofia_prolight';
+}
+
+.description{
+    min-height: 10em;
+}
+
+.list{
+    border: 1px thin black;
+    border-radius: 3%;
+}
+.little-up-top{
+    margin-top: 1em;
+}
+.little-down-below{
+    margin-top: 1em;
+}
+
+.book-confirm{
+    text-align: left;
+}
+
+footer{
+    margin-top: 5em;
+}
+
+a{
+    cursor: pointer;
+}

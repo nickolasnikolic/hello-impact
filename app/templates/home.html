@@ -1,0 +1,79 @@
+
+
+<section class="col-sm-12 login col-md-4 col-md-offset-8">
+  <form>
+    <input id="username" type="text" name="username" placeholder="email"></input>
+    <input id="password" type="password" name="password" placeholder="password"></input>
+    <button id="loginButton" class="btn btn-default" ng-click="login()">login</button>
+  </form>
+  <p>need to <a data-toggle='modal' data-target="#registerModal">register?</a></p>
+  <p>forgot your <a data-toggle='modal' data-target="#passwordModal">password?</a></p>
+</section>
+<hr/>
+<section class="banner col-sm-12 col-md-4">
+  <article class="description">
+    <p>list.plus is a free service that lets you list, update, and share youth-friendly clinics in your area.</p>
+  </article>
+</section>
+<hr/>
+<section class="lists clearfix">
+  <div class="col-sm-12">
+    <p>filter lists:<input type="text" placeholder="to just those you want" ng-model="searchText"></p>
+  </div>
+  <article class="list col-sm-12 col-md-3" ng-repeat="list in lists | filter:searchText">
+    <div><h2>{{list.name}}</h2></div>
+        <ul>
+      <li ng-repeat="item in list.items">
+        TODO: listing
+      </li>
+    </ul>
+    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://list.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
+      <a href="" class="ssk ssk-facebook"></a>
+      <a href="" class="ssk ssk-twitter"></a>
+      <a href="" class="ssk ssk-google-plus"></a>
+      <a href="" class="ssk ssk-pinterest"></a>
+      <a href="" class="ssk ssk-linkedin"></a>
+    </div>
+  </article>
+</section>
+
+<hr/>
+<!-- Modal registration-->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div id="RegistrationContainer">
+            <p><input placeholder="email" name="email" type="text" id="registrationEmail"></input></p>
+            <p><input placeholder="password" name="password" type="password" id="registrationPassword"></input></p>
+            <p><input placeholder="nickname" name="nickname" type="text" id="registrationNickname"></input></p>
+            <p><button ng-click="register()" data-dismiss="modal" class="btn btn-default">register</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal password reminder-->
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div id="passwordContainer">
+            <p><input placeholder="email" name="email" type="text" id="passwordEmail"></input></p>
+            <p><button ng-click="passwordReminder()" data-dismiss="modal" class="btn btn-default">send yourself your password</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
