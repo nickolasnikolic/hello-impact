@@ -287,12 +287,27 @@ $app->post('/admin/add/book/', function(){
   //pull the class details from the post
   $name = $_POST['title'];
 
-  if(isset($_POST['author'])) {
-    $author = $_POST['author'];
-  }else{
-    $author = '';
-  }
-  $isbn = $_POST['isbn'];
+  $address1 = $_POST['address1'];
+  $address2 = $_POST['address2'];
+  $address3 = $_POST['address3'];
+
+  $city = $_POST['city'];
+  $state = $_POST['state'];
+  $zipcode = $_POST['zipcode'];
+
+  $country = $_POST['country'];
+
+  $phone = $_POST['phone'];
+  $fax = $_POST['fax'];
+
+  $hours_monday = $_POST['hours_monday'];
+  $hours_tuesday = $_POST['hours_tuesday'];
+  $hours_wednesday = $_POST['hours_wednesday'];
+  $hours_thursday = $_POST['hours_thursday'];
+  $hours_friday = $_POST['hours_friday'];
+  $hours_saturday = $_POST['hours_saturday'];
+  $hours_sunday = $_POST['hours_sunday'];
+
   $classid = $_POST['class'];
   $administrator = $_POST['admin'];
 
@@ -310,10 +325,74 @@ $app->post('/admin/add/book/', function(){
   $database = substr($url["path"], 1);
 
   $db = new PDO("mysql:host=$server;dbname=$database;charset=utf8", $user, $pass);
-  $stmtUserId = $db->prepare('INSERT INTO items (title, isbn, author, list) VALUES (:title, :isbn, :author, :class);');
+  $stmtUserId = $db->prepare('INSERT INTO items (
+                                                title,
+                                                address1,
+                                                address2,
+                                                address3,
+
+                                                city,
+                                                state,
+                                                zipcode,
+
+                                                country,
+
+                                                phone,
+                                                fax,
+
+                                                hours_monday,
+                                                hours_tuesday,
+                                                hours_wednesday,
+                                                hours_thursday,
+                                                hours_friday,
+                                                hours_saturday,
+                                                hours_sunday,
+                                                list
+                                                ) VALUES (
+                                                :title,
+                                                :address1,
+                                                :address2,
+                                                :address3,
+
+                                                :city,
+                                                :state,
+                                                :zipcode,
+
+                                                :country,
+
+                                                :phone,
+                                                :fax,
+
+                                                :hours_monday,
+                                                :hours_tuesday,
+                                                :hours_wednesday,
+                                                :hours_thursday,
+                                                :hours_friday,
+                                                :hours_saturday,
+                                                :hours_sunday,
+                                                :class
+                                                );');
   $stmtUserId->bindParam( ':title', $name );
-  $stmtUserId->bindParam( ':author', $author );
-  $stmtUserId->bindParam( ':isbn', $isbn );
+  $stmtUserId->bindParam( ':address1', $address1 );
+  $stmtUserId->bindParam( ':address2', $address2 );
+  $stmtUserId->bindParam( ':address3', $address3 );
+
+  $stmtUserId->bindParam( ':city', $city );
+  $stmtUserId->bindParam( ':state', $state  );
+  $stmtUserId->bindParam( ':zipcode', $zipcode );
+
+  $stmtUserId->bindParam( ':country', $country );
+
+  $stmtUserId->bindParam( ':phone', $phone );
+  $stmtUserId->bindParam( ':fax', $fax  );
+
+  $stmtUserId->bindParam( ':hours_monday', $hours_monday );
+  $stmtUserId->bindParam( ':hours_tuesday', $hours_tuesday );
+  $stmtUserId->bindParam( ':hours_wednesday', $hours_wednesday );
+  $stmtUserId->bindParam( ':hours_thursday', $hours_thursday );
+  $stmtUserId->bindParam( ':hours_friday', $hours_friday );
+  $stmtUserId->bindParam( ':hours_saturday', $hours_saturday  );
+  $stmtUserId->bindParam( ':hours_sunday', $hours_sunday  );
   $stmtUserId->bindParam( ':class', $classid );
   $stmtUserId->execute();
 
