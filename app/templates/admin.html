@@ -8,7 +8,7 @@
       <tbody>
         <tr ng-show="!classes.length">
           <td colspan="3">
-            <p>Please add a list and books or other items to generate a qr code for your buyers.</p>
+            <p>Please add a clinic or list of clinics to generate a qr code.</p>
             <p>If you are having any trouble at all, feel free to call 1-414-628-8575</p>
           </td>
         </tr>
@@ -24,7 +24,7 @@
             <span ng-show="class.items.length">
             <button ng-mouseover="frustrating(classIndex, class.id)" ng-click="generateQrCode(classIndex)" class="btn btn-default qrcode" data-toggle="modal" data-target="#myQrModal">generate qr code</button>
             </span>
-            <span ng-show="!class.items.length">Please add a book or other item to generate a qr code for your buyers.</span>
+            <span ng-show="!class.items.length">Please add a clinic or list of clinics to generate a qr code.</span>
           </td>
         </tr>
       </tbody>
@@ -38,7 +38,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add a class:</h4>
+        <h4 class="modal-title" id="myModalLabel">Add a city or area:</h4>
       </div>
       <div class="modal-body">
         <div>
