@@ -154,14 +154,36 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
 
     var admin = globals.getUserId();
     var book = $scope.book;
-    $scope.book = {};//clearing it
-    var isbn = $('#bookIsbn').val();
-    book.ISBN = isbn.trim();
+
 
     $('#bookIsbn').val('');
 
     //add to db
-    $.post('../api/admin/add/book/',{ 'title': book.Title, 'isbn': book.ISBN, 'author': book.Author, 'class': classIndex, 'admin': admin })
+    $.post('../api/admin/add/book/',{
+      'title': book.title,
+      address1: book.address1,
+      address2: book.address2,
+      address3: book.address3,
+
+      city: book.city,
+      state: book.state,
+      zipcode: book.zipcode,
+
+      country: book.country,
+
+      phone: book.phone,
+      fax: book.fax,
+
+      hours_monday: book.hours_monday,
+      hours_tuesday: book.hours_tuesday,
+      hours_wednesday: book.hours_wednesday,
+      hours_thursday: book.hours_thursday,
+      hours_friday: book.hours_friday,
+      hours_saturday: book.hours_saturday,
+      hours_sunday: book.hours_sunday,
+
+      'class': classIndex, 'admin': admin
+    })
         .success(function(data){
           $scope.classes = JSON.parse(data); //HACK refreshing whole list when single book is added
           $scope.$apply();
