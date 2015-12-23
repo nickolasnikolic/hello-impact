@@ -10,9 +10,9 @@
   <p>forgot your <a data-toggle='modal' data-target="#passwordModal">password?</a></p>
 </section>
 <hr/>
-<section class="banner col-sm-12 col-md-4">
+<section class="banner col-md-4 col-md-offset-8">
   <article class="description">
-    <p>list.plus is a free service that lets you list, update, and share youth-friendly clinics in your area.</p>
+    <p>list.plus is a free service that lets you compile shopping lists and anyone can purchase them from Amazon.com&trade; in just one step.</p>
   </article>
 </section>
 <hr/>
@@ -22,18 +22,15 @@
   </div>
   <article class="list col-sm-12 col-md-3" ng-repeat="list in lists | filter:searchText">
     <div><h2>{{list.name}}</h2></div>
-        <ul>
+    <div class="san-serif little-down-below" ng-if="list.nickname != null"><small>Contributed by: {{list.nickname}}</small></div>
+    <ul>
       <li ng-repeat="item in list.items">
-        TODO: listing
+
+        {{item.title}}
+
       </li>
     </ul>
-    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://list.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
-      <a href="" class="ssk ssk-facebook"></a>
-      <a href="" class="ssk ssk-twitter"></a>
-      <a href="" class="ssk ssk-google-plus"></a>
-      <a href="" class="ssk ssk-pinterest"></a>
-      <a href="" class="ssk ssk-linkedin"></a>
-    </div>
+    <div class="little-up-top"><p><a target="_blank" ng-href="http://list.plus/api/bouncy/{{list.list_owner}}/{{list.id}}">click here to buy above list at once</a></p></div>
   </article>
 </section>
 
