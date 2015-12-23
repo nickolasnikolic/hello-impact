@@ -311,10 +311,6 @@ $app->post('/admin/add/book/', function(){
   $classid = $_POST['class'];
   $administrator = $_POST['admin'];
 
-  if( is_array($author) ){
-    $author = join(',', $author);
-  }
-
   //set them in the db
 
   $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
