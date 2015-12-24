@@ -281,7 +281,7 @@ $app->post('/admin/remove/class/', function(){
 
 });
 
-//add book //TODO not enough values inserted
+
 $app->post('/admin/add/book/', function(){
   //for this admin
   //pull the class details from the post
@@ -289,7 +289,6 @@ $app->post('/admin/add/book/', function(){
 
   $address1 = $_POST['address1'];
   $address2 = $_POST['address2'];
-  $address3 = $_POST['address3'];
 
   $city = $_POST['city'];
   $state = $_POST['state'];
@@ -299,6 +298,7 @@ $app->post('/admin/add/book/', function(){
 
   $phone = $_POST['phone'];
   $fax = $_POST['fax'];
+  $description = $_POST['description'];
 
   $hours_monday = $_POST['hours_monday'];
   $hours_tuesday = $_POST['hours_tuesday'];
@@ -335,7 +335,7 @@ $app->post('/admin/add/book/', function(){
 
                                                 phone,
                                                 fax,
-
+                                                description,
                                                 hours_monday,
                                                 hours_tuesday,
                                                 hours_wednesday,
@@ -358,7 +358,7 @@ $app->post('/admin/add/book/', function(){
 
                                                 :phone,
                                                 :fax,
-
+                                                :description,
                                                 :hours_monday,
                                                 :hours_tuesday,
                                                 :hours_wednesday,
@@ -381,6 +381,7 @@ $app->post('/admin/add/book/', function(){
 
   $stmtUserId->bindParam( ':phone', $phone );
   $stmtUserId->bindParam( ':fax', $fax  );
+  $stmtUserId->bindParam( ':description', $description  );
 
   $stmtUserId->bindParam( ':hours_monday', $hours_monday );
   $stmtUserId->bindParam( ':hours_tuesday', $hours_tuesday );
