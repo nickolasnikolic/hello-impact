@@ -297,7 +297,7 @@ $app->post('/admin/add/book/', function(){
   $country = $_POST['country'];
 
   $phone = $_POST['phone'];
-  $fax = $_POST['fax'];
+
   $description = $_POST['description'];
 
   $hours_monday = $_POST['hours_monday'];
@@ -334,7 +334,7 @@ $app->post('/admin/add/book/', function(){
                                                 country,
 
                                                 phone,
-                                                fax,
+
                                                 description,
                                                 hours_monday,
                                                 hours_tuesday,
@@ -357,7 +357,7 @@ $app->post('/admin/add/book/', function(){
                                                 :country,
 
                                                 :phone,
-                                                :fax,
+
                                                 :description,
                                                 :hours_monday,
                                                 :hours_tuesday,
@@ -380,7 +380,7 @@ $app->post('/admin/add/book/', function(){
   $stmtUserId->bindParam( ':country', $country );
 
   $stmtUserId->bindParam( ':phone', $phone );
-  $stmtUserId->bindParam( ':fax', $fax  );
+
   $stmtUserId->bindParam( ':description', $description  );
 
   $stmtUserId->bindParam( ':hours_monday', $hours_monday );
