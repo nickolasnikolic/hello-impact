@@ -7,10 +7,17 @@
 <section class="container lists clearfix col-sm-12">
   <article class="list col-sm-12 col-md-3">
     <div><h2>{{list[0].name}}</h2></div>
+    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://quick.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
+      <a href="" class="ssk ssk-facebook"></a>
+      <a href="" class="ssk ssk-twitter"></a>
+      <a href="" class="ssk ssk-google-plus"></a>
+      <a href="" class="ssk ssk-pinterest"></a>
+      <a href="" class="ssk ssk-linkedin"></a>
+    </div>
     <ul>
       <li ng-repeat="item in list.items">
 
-        {{item<br />
+        {{item.title}}<br />
 
         {{item.address1}}<br />
         {{item.address2}}<br />
@@ -38,13 +45,6 @@
         sunday: {{item.hours_sunday}}<br />
 
       </li>
-    </div>
-    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://quick.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
-      <a href="" class="ssk ssk-facebook"></a>
-      <a href="" class="ssk ssk-twitter"></a>
-      <a href="" class="ssk ssk-google-plus"></a>
-      <a href="" class="ssk ssk-pinterest"></a>
-      <a href="" class="ssk ssk-linkedin"></a>
     </div>
   </article>
 </section>

@@ -24,6 +24,13 @@
   <article class="list col-sm-12 col-md-3" ng-repeat="list in lists | filter:searchText">
     <div><h2>{{list.name}}</h2></div>
     <div class="san-serif little-down-below" ng-if="list.nickname != null"><small>Contributed by: {{list.nickname}}</small></div>
+    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://quick.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
+      <a href="" class="ssk ssk-facebook"></a>
+      <a href="" class="ssk ssk-twitter"></a>
+      <a href="" class="ssk ssk-google-plus"></a>
+      <a href="" class="ssk ssk-pinterest"></a>
+      <a href="" class="ssk ssk-linkedin"></a>
+    </div>
     <ul>
       <li ng-repeat="item in list.items">
 
@@ -53,13 +60,6 @@
 
       </li>
     </ul>
-    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://quick.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
-      <a href="" class="ssk ssk-facebook"></a>
-      <a href="" class="ssk ssk-twitter"></a>
-      <a href="" class="ssk ssk-google-plus"></a>
-      <a href="" class="ssk ssk-pinterest"></a>
-      <a href="" class="ssk ssk-linkedin"></a>
-    </div>
   </article>
 </section>
 
