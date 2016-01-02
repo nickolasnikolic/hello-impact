@@ -210,7 +210,7 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
 
     var book = item;
 
-    $.post('../api/admin/edit/book/',{
+    $.post('../api/admin/update/book/',{
           title: book.title,
           address1: book.address1,
           address2: book.address2,
