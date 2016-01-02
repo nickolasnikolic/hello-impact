@@ -196,11 +196,14 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
   $scope.editBookLink = function(){
 
     var admin = globals.getUserId();
-    var book = $scope.book;
+    var book = $scope.classes[which].items[index];
 
     console.log(admin,book);
 
     $('#myAddBookModal').modal('show');
+
+    $scope.book = book;
+
   };
 
   //on remove book
