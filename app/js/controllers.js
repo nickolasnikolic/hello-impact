@@ -193,45 +193,12 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
 
   //get book for edit
   //add book
-  $scope.getBook = function(){
+  $scope.editBook = function(){
 
     var admin = globals.getUserId();
     var book = $scope.book;
 
-
-    $('#bookIsbn').val('');
-
-    //add to db
-    $.get('../api/admin/one/book/',{
-      title: book.title,
-      address1: book.address1,
-      address2: book.address2,
-      address3: book.address3,
-
-      city: book.city,
-      state: book.state,
-      zipcode: book.zipcode,
-
-      country: book.country,
-
-      phone: book.phone,
-      fax: book.fax,
-
-      hours_monday: book.hours_monday,
-      hours_tuesday: book.hours_tuesday,
-      hours_wednesday: book.hours_wednesday,
-      hours_thursday: book.hours_thursday,
-      hours_friday: book.hours_friday,
-      hours_saturday: book.hours_saturday,
-      hours_sunday: book.hours_sunday,
-
-      class: classIndex, 'admin': admin
-    })
-        .success(function(data){
-          $scope.classes = JSON.parse(data); //HACK refreshing whole list when single book is added
-          $scope.$apply();
-        })
-        .error(function(error){ console.log(error) });
+    console.log(admin,book);
   };
 
   //on remove book
