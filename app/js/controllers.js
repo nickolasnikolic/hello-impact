@@ -203,7 +203,7 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
     $('#myAddBookModal').modal('show');
 
     $scope.book = book;
-
+    $scope.$apply();
   };
 
   //on remove book
