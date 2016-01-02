@@ -254,7 +254,7 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
     $('#qrcode').empty();
 
     $scope.qrcodeurl = 'https://hello-impact.herokuapp.com'; //site root...
-    $scope.qrcodeurl += '/api/bouncy/';
+    $scope.qrcodeurl += '/api/shared/';
 
     var thisClass = $scope.classes[whichClass];
 
