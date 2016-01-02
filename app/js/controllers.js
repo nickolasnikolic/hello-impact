@@ -200,7 +200,7 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
 
     console.log(admin,book);
 
-    $('#myAddBookModal').modal('show');
+    $('#myEditBookModal').modal('show');
 
     $scope.book = book;
 
