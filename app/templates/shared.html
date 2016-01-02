@@ -10,7 +10,7 @@
     <ul>
       <li ng-repeat="item in list.items">
 
-        {{item.title}}<br />
+        {{item<br />
 
         {{item.address1}}<br />
         {{item.address2}}<br />
@@ -38,6 +38,13 @@
         sunday: {{item.hours_sunday}}<br />
 
       </li>
-    </ul>
+    </div>
+    <div class="sharing-list ssk-group ssk-xs ssk-count ssk-grayscale" data-url="http://list.plus/app/#/shared/{{list.list_owner}}/{{list.id}}" data-text="{{list.name}}">
+      <a href="" class="ssk ssk-facebook"></a>
+      <a href="" class="ssk ssk-twitter"></a>
+      <a href="" class="ssk ssk-google-plus"></a>
+      <a href="" class="ssk ssk-pinterest"></a>
+      <a href="" class="ssk ssk-linkedin"></a>
+    </div>
   </article>
 </section>
