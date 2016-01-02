@@ -414,6 +414,117 @@ $app->post('/admin/add/book/', function(){
   echo json_encode( $resultClasses );
 });
 
+$app->post('/admin/update/book/', function(){
+  //for this admin
+  //pull the class details from the post
+  $name = $_POST['title'];
+
+  $address1 = $_POST['address1'];
+  $address2 = $_POST['address2'];
+
+  $city = $_POST['city'];
+  $state = $_POST['state'];
+  $zipcode = $_POST['zipcode'];
+
+  $country = $_POST['country'];
+
+  $phone = $_POST['phone'];
+
+  $description = $_POST['description'];
+
+  $hours_monday = $_POST['hours_monday'];
+  $hours_tuesday = $_POST['hours_tuesday'];
+  $hours_wednesday = $_POST['hours_wednesday'];
+  $hours_thursday = $_POST['hours_thursday'];
+  $hours_friday = $_POST['hours_friday'];
+  $hours_saturday = $_POST['hours_saturday'];
+  $hours_sunday = $_POST['hours_sunday'];
+
+  $classid = $_POST['class'];
+  $administrator = $_POST['admin'];
+
+  //set them in the db
+
+  $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+  $server = $url["host"];
+  $user = $url["user"];
+  $pass = $url["pass"];
+  $database = substr($url["path"], 1);
+
+  $db = new PDO("mysql:host=$server;dbname=$database;charset=utf8", $user, $pass);
+  $stmtUserId = $db->prepare('UPDATE
+                                items
+                              SET
+                                title = :title,
+                                address1 = :address1,
+                                address2 = :address2,
+                                address3 = :address3,
+
+                                city = :city,
+                                state = :state,
+                                zipcode = :zipcode,
+
+                                country = :country,
+
+                                phone = :phone,
+
+                                description = :description,
+                                hours_monday = :hours_monday,
+                                hours_tuesday = :hours_tuesday,
+                                hours_wednesday = :hours_wednesday,
+                                hours_thursday = :hours_thursday,
+                                hours_friday = :hours_friday,
+                                hours_saturday = :hours_saturday,
+                                hours_sunday = :hours_sunday
+                              WHERE
+                                class = :class;');
+  $stmtUserId->bindParam( ':title', $name );
+  $stmtUserId->bindParam( ':address1', $address1 );
+  $stmtUserId->bindParam( ':address2', $address2 );
+  $stmtUserId->bindParam( ':address3', $address3 );
+
+  $stmtUserId->bindParam( ':city', $city );
+  $stmtUserId->bindParam( ':state', $state  );
+  $stmtUserId->bindParam( ':zipcode', $zipcode );
+
+  $stmtUserId->bindParam( ':country', $country );
+
+  $stmtUserId->bindParam( ':phone', $phone );
+
+  $stmtUserId->bindParam( ':description', $description  );
+
+  $stmtUserId->bindParam( ':hours_monday', $hours_monday );
+  $stmtUserId->bindParam( ':hours_tuesday', $hours_tuesday );
+  $stmtUserId->bindParam( ':hours_wednesday', $hours_wednesday );
+  $stmtUserId->bindParam( ':hours_thursday', $hours_thursday );
+  $stmtUserId->bindParam( ':hours_friday', $hours_friday );
+  $stmtUserId->bindParam( ':hours_saturday', $hours_saturday  );
+  $stmtUserId->bindParam( ':hours_sunday', $hours_sunday  );
+  $stmtUserId->bindParam( ':class', $classid );
+  $stmtUserId->execute();
+
+  //get the classes an administrator teaches
+  $stmtClasses = $db->prepare('SELECT * FROM lists WHERE list_owner = :administrator;');
+  $stmtClasses->bindParam( ':administrator', $administrator );
+  $stmtClasses->execute();
+  $resultClasses = $stmtClasses->fetchAll(PDO::FETCH_ASSOC);
+
+  //then for each
+  foreach ($resultClasses as &$class) {
+    //get the books from that class
+    $stmtBooks = $db->prepare('SELECT * FROM items WHERE list = :classid;');
+    $stmtBooks->bindParam( ':classid', $class['id'] );
+    $stmtBooks->execute();
+    $resultBooks = $stmtBooks->fetchAll(PDO::FETCH_ASSOC);
+    //then attach them to the appropriate class for this administrator
+    $class['items'] = $resultBooks;
+  }
+
+  //return as json
+  echo json_encode( $resultClasses );
+});
+
 //delete book
 $app->post('/admin/remove/book/', function(){
   //for this admin
@@ -436,169 +547,6 @@ $app->post('/admin/remove/book/', function(){
 
   $stmtUserId->execute();
 
-});
-
-$app->get('/amazon/search/:keywords', function( $keywords ){
-
-  $conf = new GenericConfiguration();
-
-  $conf
-      ->setCountry(getenv('AMAZON_COUNTRY'))
-      ->setAccessKey(getenv('AMAZON_ACCESS'))
-      ->setSecretKey(getenv('AMAZON_SECRET'))
-      ->setAssociateTag(getenv('AMAZON_ASSOCIATE_TAG'));
-
-  $search = new Search();
-  $search->setResponseGroup(array('Large')); // More detailed information
-  $search->setKeywords($keywords);
-
-  $apaiIo = new ApaiIO($conf);
-  $response = $apaiIo->runOperation($search);
-
-  echo json_encode(simplexml_load_string($response));
-
-});
-
-$app->get('/amazon/node/:browsenode', function( $browsenode ){
-
-  $conf = new GenericConfiguration();
-
-  $conf
-      ->setCountry(getenv('AMAZON_COUNTRY'))
-      ->setAccessKey(getenv('AMAZON_ACCESS'))
-      ->setSecretKey(getenv('AMAZON_SECRET'))
-      ->setAssociateTag(getenv('AMAZON_ASSOCIATE_TAG'));
-
-
-  $browseNodeLookup = new BrowseNodeLookup();
-  $browseNodeLookup->setNodeId($browsenode);
-
-  $apaiIo = new ApaiIO($conf);
-  $response = $apaiIo->runOperation($browseNodeLookup);
-
-  echo json_encode(simplexml_load_string($response));
-
-});
-
-$app->get('/amazon/lookup/:asin', function( $asin ) {
-
-  $conf = new GenericConfiguration();
-
-  $conf
-      ->setCountry(getenv('AMAZON_COUNTRY'))
-      ->setAccessKey(getenv('AMAZON_ACCESS'))
-      ->setSecretKey(getenv('AMAZON_SECRET'))
-      ->setAssociateTag(getenv('AMAZON_ASSOCIATE_TAG'));
-
-  $apaiIo = new ApaiIO($conf);
-
-  $lookup = new Lookup();
-  $lookup->setItemId($asin);
-  $lookup->setResponseGroup(array('Large')); // More detailed information
-
-  $response = $apaiIo->runOperation($lookup);
-
-  echo json_encode(simplexml_load_string($response));
-
-});
-
-$app->get('/amazon/small/lookup/:asin', function( $asin ) {
-
-  $conf = new GenericConfiguration();
-
-  $conf
-      ->setCountry(getenv('AMAZON_COUNTRY'))
-      ->setAccessKey(getenv('AMAZON_ACCESS'))
-      ->setSecretKey(getenv('AMAZON_SECRET'))
-      ->setAssociateTag(getenv('AMAZON_ASSOCIATE_TAG'));
-
-  $apaiIo = new ApaiIO($conf);
-
-  $lookup = new Lookup();
-  $lookup->setItemId($asin);
-  $lookup->setResponseGroup(array('Small')); // less detailed information
-
-  $response = $apaiIo->runOperation($lookup);
-
-  echo json_encode(simplexml_load_string($response));
-
-});
-
-$app->get('/amazon/similar/:asin', function( $asin ) {
-
-  $conf = new GenericConfiguration();
-
-  $conf
-      ->setCountry(getenv('AMAZON_COUNTRY'))
-      ->setAccessKey(getenv('AMAZON_ACCESS'))
-      ->setSecretKey(getenv('AMAZON_SECRET'))
-      ->setAssociateTag(getenv('AMAZON_ASSOCIATE_TAG'));
-
-  $apaiIo = new ApaiIO($conf);
-
-  $similaritylookup = new SimilarityLookup();
-  $similaritylookup->setItemId($asin);
-
-  $response = $apaiIo->runOperation($similaritylookup);
-  echo json_encode(simplexml_load_string($response));
-
-});
-
-//where the amazon magic happens
-$app->get('/bouncy/:administrator/:thisclassid', function($administrator, $thisclassid){
-
-  //get the administrator
-
-  $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-  $server = $url["host"];
-  $user = $url["user"];
-  $pass = $url["pass"];
-  $database = substr($url["path"], 1);
-
-  //get the books from that class
-  $db = new PDO("mysql:host=$server;dbname=$database;charset=utf8", $user, $pass);
-  $stmtBooks = $db->prepare('SELECT * FROM items WHERE list = :class');
-  $stmtBooks->bindParam( ':class', $thisclassid );
-  $stmtBooks->execute();
-  $resultingBooks = $stmtBooks->fetchAll(PDO::FETCH_ASSOC);
-
-  //send those books over to amazon
-  //start the request to create the cart
-  $conf = new GenericConfiguration();
-
-  $conf
-      ->setCountry(getenv('AMAZON_COUNTRY'))
-      ->setAccessKey(getenv('AMAZON_ACCESS'))
-      ->setSecretKey(getenv('AMAZON_SECRET'))
-      ->setAssociateTag(getenv('AMAZON_ASSOCIATE_TAG'));
-
-  $apaiIO = new ApaiIO($conf);
-
-  $cartCreate = new CartCreate();
-
-  //for each of the books in question
-  //build the individual portions of the request
-  foreach ($resultingBooks as $book ) {
-
-      $cartCreate->addItem($book['isbn'], 1);
-
-  }
-
-  //complete the request, creating the cart
-  $response = $apaiIO->runOperation($cartCreate);
-
-  $placeToGo = simplexml_load_string($response);
-
-  $url = $placeToGo->Cart->PurchaseURL[0];
-
-  if(!empty($url)){
-    //finally redirect to amazon where the cart has been created
-    header('location: ' . $url );
-    exit();
-  }else{
-    echo '<h2>The cart couldn\'t be created.</h2>';
-  }
 });
 
 $app->post('/contact', function(){
