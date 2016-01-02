@@ -440,8 +440,7 @@ $app->post('/admin/update/book/', function(){
   $hours_saturday = $_POST['hours_saturday'];
   $hours_sunday = $_POST['hours_sunday'];
 
-  $classid = $_POST['class'];
-  $administrator = $_POST['admin'];
+  $bookid = $_POST['bookid'];
 
   //set them in the db
 
@@ -459,7 +458,6 @@ $app->post('/admin/update/book/', function(){
                                 title = :title,
                                 address1 = :address1,
                                 address2 = :address2,
-                                address3 = :address3,
 
                                 city = :city,
                                 state = :state,
@@ -478,11 +476,13 @@ $app->post('/admin/update/book/', function(){
                                 hours_saturday = :hours_saturday,
                                 hours_sunday = :hours_sunday
                               WHERE
-                                class = :class;');
+                                id = :bookid;');
+
+  $stmtUserId->bindParam( ':bookid', $bookid );
+
   $stmtUserId->bindParam( ':title', $name );
   $stmtUserId->bindParam( ':address1', $address1 );
   $stmtUserId->bindParam( ':address2', $address2 );
-  $stmtUserId->bindParam( ':address3', $address3 );
 
   $stmtUserId->bindParam( ':city', $city );
   $stmtUserId->bindParam( ':state', $state  );
@@ -501,7 +501,7 @@ $app->post('/admin/update/book/', function(){
   $stmtUserId->bindParam( ':hours_friday', $hours_friday );
   $stmtUserId->bindParam( ':hours_saturday', $hours_saturday  );
   $stmtUserId->bindParam( ':hours_sunday', $hours_sunday  );
-  $stmtUserId->bindParam( ':class', $classid );
+
   $stmtUserId->execute();
 
   //get the classes an administrator teaches

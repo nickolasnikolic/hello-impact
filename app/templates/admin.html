@@ -79,7 +79,6 @@
           country: <input type="text" ng-model="book.country" /><br />
 
           phone: <input type="text" ng-model="book.phone" /><br />
-          fax: <input type="text" ng-model="book.fax" /><br />
 
           description: <textarea ng-model="book.description"></textarea><br />
 
@@ -96,12 +95,56 @@
         </div>
       </div>
       <div class="modal-footer">
-        <p><button ng-click="addBook()" data-dismiss="modal" class="btn btn-primary">this is the right address</button></p>
+        <p><button ng-click="addBook()" data-dismiss="modal" class="btn btn-primary">this is right</button></p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal Edit BOOK -->
+<div class="modal fade" id="myEditBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add a clinic:</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+
+          clinic title: <input type="text" ng-model="book.title" /><br />
+
+          address line 1: <input type="text" ng-model="book.address1" /><br />
+          address line 2: <input type="text" ng-model="book.address2" /><br />
+
+          city: <input type="text" ng-model="book.city" /><br />
+          state: <input type="text" ng-model="book.state" /><br />
+          zipcode: <input type="text" ng-model="book.zipcode" /><br />
+
+          country: <input type="text" ng-model="book.country" /><br />
+
+          phone: <input type="text" ng-model="book.phone" /><br />
+
+          description: <textarea ng-model="book.description"></textarea><br />
+
+          hours of operation:<br />
+
+          monday: <input type="text" ng-model="book.hours_monday" /><br />
+          tuesday: <input type="text" ng-model="book.hours_tuesday" /><br />
+          wednesday: <input type="text" ng-model="book.hours_wednesday" /><br />
+          thursday: <input type="text" ng-model="book.hours_thursday" /><br />
+          friday: <input type="text" ng-model="book.hours_friday" /><br />
+          saturday: <input type="text" ng-model="book.hours_saturday" /><br />
+          sunday: <input type="text" ng-model="book.hours_sunday" /><br />
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p><button ng-click="editBook(book)" data-dismiss="modal" class="btn btn-primary">this is right</button></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal generate qr code -->
 <div class="modal fade" id="myQrModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -162,7 +162,6 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
       title: book.title,
       address1: book.address1,
       address2: book.address2,
-      address3: book.address3,
 
       city: book.city,
       state: book.state,
@@ -182,10 +181,11 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
       hours_saturday: book.hours_saturday,
       hours_sunday: book.hours_sunday,
 
-      class: classIndex, 'admin': admin
+      class: classIndex,
+      'admin': admin
     })
         .success(function(data){
-          $scope.classes = JSON.parse(data); //HACK refreshing whole list when single book is added
+          $scope.classes = JSON.parse(data);
           $scope.$apply();
         })
         .error(function(error){ console.log(error) });
@@ -203,7 +203,44 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
     $('#myAddBookModal').modal('show');
 
     $scope.book = book;
-    //$scope.$apply();
+
+  };
+
+  $scope.editBook = function(item){
+
+    var book = item;
+
+    $.post('../api/admin/edit/book/',{
+          title: book.title,
+          address1: book.address1,
+          address2: book.address2,
+
+          city: book.city,
+          state: book.state,
+          zipcode: book.zipcode,
+
+          country: book.country,
+
+          phone: book.phone,
+          fax: book.fax,
+
+          description: book.description,
+
+          hours_monday: book.hours_monday,
+          hours_tuesday: book.hours_tuesday,
+          hours_wednesday: book.hours_wednesday,
+          hours_thursday: book.hours_thursday,
+          hours_friday: book.hours_friday,
+          hours_saturday: book.hours_saturday,
+          hours_sunday: book.hours_sunday,
+
+          bookid: book.id
+        })
+        .success(function(data){
+          $scope.classes = JSON.parse(data);
+          $scope.$apply();
+        })
+        .error(function(error){ console.log(error) });
   };
 
   //on remove book
