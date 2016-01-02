@@ -442,6 +442,8 @@ $app->post('/admin/update/book/', function(){
 
   $bookid = $_POST['bookid'];
 
+  $administrator = $_POST['admin'];
+
   //set them in the db
 
   $url = parse_url(getenv("CLEARDB_DATABASE_URL"));

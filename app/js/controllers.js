@@ -234,7 +234,8 @@ blindApp.controller('AdminController', ['$scope', '$state', 'globals', function(
           hours_saturday: book.hours_saturday,
           hours_sunday: book.hours_sunday,
 
-          bookid: book.id
+          bookid: book.id,
+          admin: globals.getUserId()
         })
         .success(function(data){
           $scope.classes = JSON.parse(data);
