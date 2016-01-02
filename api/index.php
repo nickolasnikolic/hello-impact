@@ -288,8 +288,10 @@ $app->post('/admin/add/book/', function(){
   $name = $_POST['title'];
 
   $address1 = $_POST['address1'];
-  $address2 = $_POST['address2'];
 
+  if(isset($_POST['address2'])) {
+    $address2 = $_POST['address2'];
+  }
   $city = $_POST['city'];
   $state = $_POST['state'];
   $zipcode = $_POST['zipcode'];
@@ -325,7 +327,6 @@ $app->post('/admin/add/book/', function(){
                                                 title,
                                                 address1,
                                                 address2,
-                                                address3,
 
                                                 city,
                                                 state,
@@ -348,7 +349,6 @@ $app->post('/admin/add/book/', function(){
                                                 :title,
                                                 :address1,
                                                 :address2,
-                                                :address3,
 
                                                 :city,
                                                 :state,
@@ -371,7 +371,6 @@ $app->post('/admin/add/book/', function(){
   $stmtUserId->bindParam( ':title', $name );
   $stmtUserId->bindParam( ':address1', $address1 );
   $stmtUserId->bindParam( ':address2', $address2 );
-  $stmtUserId->bindParam( ':address3', $address3 );
 
   $stmtUserId->bindParam( ':city', $city );
   $stmtUserId->bindParam( ':state', $state  );
